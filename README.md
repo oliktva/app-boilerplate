@@ -3,10 +3,12 @@
 This is a boilerplate to build an app using React, Redux, Webpack, Stylus.
 
 ## Quick start
-        npm i
+```bash
+npm i
 
-        # Start server
-        npm run dev
+# Start server
+npm run dev
 
-        # Build app
-        npm run build
+# Build app
+npm run build
+```
