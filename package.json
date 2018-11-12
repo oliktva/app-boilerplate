@@ -4,8 +4,11 @@
   "description": "This is a frontend part for an app based on React, Redux, Webpack, TS, Stylus.",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --mode development",
-    "build": "webpack --mode production"
+    "build-server": "webpack --mode development --config webpack.server.config.js",
+    "server": "npm run build-server && nodemon server-build/server.js",
+    "prod": "npm run server",
+    "dev": "webpack-dev-server --mode development --config webpack.client.config.js",
+    "build": "webpack --mode production --config webpack.server.config.js"
   },
   "author": "Olga Kotova",
   "license": "ISC",
@@ -23,6 +26,7 @@
     "html-loader": "0.5.5",
     "html-webpack-plugin": "3.2.0",
     "mini-css-extract-plugin": "^0.4.4",
+    "nodemon": "1.18.6",
     "null-loader": "0.1.1",
     "postcss-loader": "3.0.0",
     "style-loader": "0.23.1",
@@ -30,7 +34,8 @@
     "stylus-loader": "3.0.2",
     "webpack": "4.20.2",
     "webpack-cli": "3.1.2",
-    "webpack-dev-server": "3.1.9"
+    "webpack-dev-server": "3.1.9",
+    "webpack-node-externals": "1.7.2"
   },
   "dependencies": {
     "connected-react-router": "4.5.0",

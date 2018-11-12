@@ -1,9 +1,5 @@
 import storeCreator from 'src/shared/store/store-creator';
-import testReducer from 'src/shared/reducers/test-reducer';
-
-const reducers = {
-  test: testReducer
-};
+import reducers from 'src/shared/reducers/reducers';
 
 const store = storeCreator(reducers);
 

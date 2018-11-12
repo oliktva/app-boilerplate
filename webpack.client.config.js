@@ -15,18 +15,14 @@ module.exports = (env, argv) => ({
     rules: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader'
-      }
+      use: 'babel-loader'
     }, {
       test: /\.html$/,
-      use: {
-        loader: 'html-loader'
-      }
+      use: 'html-loader'
     }, {
       test: /\.styl$/,
       use: [
-        argv.mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
+        MiniCssExtractPlugin.loader,
         'css-loader', {
           loader: 'postcss-loader',
           options: {

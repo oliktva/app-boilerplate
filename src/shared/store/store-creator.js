@@ -3,7 +3,10 @@ import thunk from 'redux-thunk';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import createHistory from 'history/createBrowserHistory';
 
-export const history = createHistory();
+export let history;
+if (typeof document !== 'undefined') {
+  history = createHistory();
+}
 
 const middleware = [thunk, routerMiddleware(history)];
 

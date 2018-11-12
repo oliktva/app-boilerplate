@@ -1,11 +1,49 @@
 const path = require('path');
 
+const nodeExternals = require('webpack-node-externals');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = (env, argv) => ({
-  entry: './src/client/init.js',
+const serverConfig = (env, argv) => ({
+  entry: './src/server/server.js',
+  target: 'node',
+  externals: [nodeExternals()],
+  output: {
+    path: path.resolve(__dirname, 'server-build'),
+    filename: 'server.js',
+    publicPath: argv.mode === 'production' ? path.resolve(__dirname, 'server-build') + '/' : '/'
+  },
+  module: {
+    rules: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader'
+      }
+    }, {
+      test: /\.html$/,
+      use: 'null-loader'
+    }, {
+      test: /\.styl$/,
+      use: 'null-loader'
+    }]
+  },
+  plugins: [
+    new CleanWebpackPlugin(['build'], {
+      root: __dirname,
+      verbose: true,
+      dry: false,
+    })
+  ],
+  resolve: {
+    modules: [path.resolve(__dirname), 'node_modules'],
+    symlinks: false
+  }
+});
+
+const clientConfig = (env, argv) => ({
+  entry: './src/server/client.js',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
@@ -26,7 +64,7 @@ module.exports = (env, argv) => ({
     }, {
       test: /\.styl$/,
       use: [
-        argv.mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
+        MiniCssExtractPlugin.loader,
         'css-loader', {
           loader: 'postcss-loader',
           options: {
@@ -45,7 +83,6 @@ module.exports = (env, argv) => ({
       template: './src/client/index.html',
       filename: './index.html'
     }),
-    new CleanWebpackPlugin(['build']),
     new MiniCssExtractPlugin({
       filename: argv.mode === 'production' ? '[name].[hash].css' : '[name].css',
       chunkFilename: argv.mode === 'production' ? '[id].[hash].css' : '[id].css',
@@ -64,3 +101,5 @@ module.exports = (env, argv) => ({
     symlinks: false
   }
 });
+
+module.exports = [clientConfig, serverConfig];
