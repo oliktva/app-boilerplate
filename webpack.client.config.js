@@ -1,8 +1,7 @@
 const path = require('path');
 
-const HtmlWebPackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const loaders = require('./webpack.loaders');
+const plugins = require('./webpack.plugins');
 
 module.exports = (env, argv) => ({
   entry: './src/client/init.js',
@@ -21,37 +20,10 @@ module.exports = (env, argv) => ({
       use: 'html-loader'
     }, {
       test: /\.styl$/,
-      use: [
-        MiniCssExtractPlugin.loader,
-        'css-loader', {
-          loader: 'postcss-loader',
-          options: {
-            plugins: () => [
-              require('autoprefixer')()
-            ]
-          }
-        }, {
-          loader: 'stylus-loader',
-          options: {
-            import: [
-              path.resolve('./src/shared/styles/app.styl')
-            ]
-          }
-        }
-      ]
+      use: loaders.getStylesLoader()
     }]
   },
-  plugins: [
-    new HtmlWebPackPlugin({
-      template: './src/client/index.html',
-      filename: './index.html'
-    }),
-    new CleanWebpackPlugin(['build']),
-    new MiniCssExtractPlugin({
-      filename: argv.mode === 'production' ? '[name].[hash].css' : '[name].css',
-      chunkFilename: argv.mode === 'production' ? '[id].[hash].css' : '[id].css',
-    })
-  ],
+  plugins: plugins.getDevPlugins(argv),
   devServer: {
     contentBase: path.resolve(__dirname, 'build/assets'),
     historyApiFallback: true,

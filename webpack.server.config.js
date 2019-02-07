@@ -1,26 +1,25 @@
 const path = require('path');
 
 const nodeExternals = require('webpack-node-externals');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const loaders = require('./webpack.loaders');
+const plugins = require('./webpack.plugins');
 
 const serverConfig = (env, argv) => ({
   entry: './src/server/server.js',
   target: 'node',
   externals: [nodeExternals()],
   output: {
-    path: path.resolve(__dirname, 'server-build'),
+    path: path.resolve(__dirname, 'build'),
     filename: 'server.js',
-    publicPath: argv.mode === 'production' ? path.resolve(__dirname, 'server-build') + '/' : '/'
+    publicPath: argv.mode === 'production' ? path.resolve(__dirname, 'build') + '/' : '/'
   },
   module: {
     rules: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader'
-      }
+      use: 'babel-loader'
     }, {
       test: /\.html$/,
       use: 'null-loader'
@@ -53,41 +52,16 @@ const clientConfig = (env, argv) => ({
     rules: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader'
-      }
+      use: 'babel-loader'
     }, {
       test: /\.html$/,
-      use: {
-        loader: 'html-loader'
-      }
+      use: 'html-loader'
     }, {
       test: /\.styl$/,
-      use: [
-        MiniCssExtractPlugin.loader,
-        'css-loader', {
-          loader: 'postcss-loader',
-          options: {
-            plugins: () => [
-              require('autoprefixer')()
-            ]
-          }
-        }, {
-          loader: 'stylus-loader'
-        }
-      ]
+      use: loaders.getStylesLoader(),
     }]
   },
-  plugins: [
-    new HtmlWebPackPlugin({
-      template: './src/client/index.html',
-      filename: './index.html'
-    }),
-    new MiniCssExtractPlugin({
-      filename: argv.mode === 'production' ? '[name].[hash].css' : '[name].css',
-      chunkFilename: argv.mode === 'production' ? '[id].[hash].css' : '[id].css',
-    })
-  ],
+  plugins: plugins.getProdPlugins(argv),
   devServer: {
     contentBase: path.resolve(__dirname, 'build/assets'),
     historyApiFallback: true,

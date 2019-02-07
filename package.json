@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build-server": "webpack --mode development --config webpack.server.config.js",
-    "server": "npm run build-server && nodemon server-build/server.js",
-    "prod": "npm run server",
-    "dev": "webpack-dev-server --mode development --config webpack.client.config.js",
-    "build": "webpack --mode production --config webpack.server.config.js"
+    "server": "npm run build-server && nodemon build/server.js",
+    "prod": "npm install && npm run server",
+    "dev": "npm install && webpack-dev-server --mode development --config webpack.client.config.js",
+    "build": "npm install && webpack --mode production --config webpack.server.config.js"
   },
   "author": "Olga Kotova",
   "license": "ISC",
