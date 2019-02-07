@@ -31,7 +31,12 @@ module.exports = (env, argv) => ({
             ]
           }
         }, {
-          loader: 'stylus-loader'
+          loader: 'stylus-loader',
+          options: {
+            import: [
+              path.resolve('./src/shared/styles/app.styl')
+            ]
+          }
         }
       ]
     }]

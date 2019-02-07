@@ -16,7 +16,7 @@ const app = express();
 const port = 3030;
 
 //Serve static files
-app.use(express.static('build'));
+app.use(express.static('build', { index: false }));
 
 // This is fired every time the server side receives a request
 app.use('/', handleRender);
