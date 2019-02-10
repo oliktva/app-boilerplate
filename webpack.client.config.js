@@ -10,11 +10,16 @@ module.exports = (env, argv) => ({
     filename: 'bundle.js',
     publicPath: argv.mode === 'production' ? path.resolve(__dirname, 'build') + '/' : '/'
   },
+  devtool: 'source-map',
   module: {
     rules: [{
-      test: /\.js$/,
+      test: /\.(tsx?|jsx?)$/,
       exclude: /node_modules/,
-      use: 'babel-loader'
+      use: 'awesome-typescript-loader'
+    }, {
+      enforce: 'pre',
+      test: /\.js$/,
+      loader: 'source-map-loader'
     }, {
       test: /\.html$/,
       use: 'html-loader'
