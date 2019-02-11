@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 
-export default class App extends Component {
+type AppProps = {
+  children: React.ReactNode
+}
+
+class App extends Component<AppProps, {}> {
   render() {
     const {
       children
@@ -14,3 +18,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default App;

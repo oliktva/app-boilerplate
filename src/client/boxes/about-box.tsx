@@ -6,8 +6,6 @@ import Main from 'src/client/blocks/main';
 
 class AboutBox extends Component {
   render() {
-    console.log(this.props.test);
-
     return (
       <Fragment>
         <Header />

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './header.styl';
 
-export default class Header extends Component {
+class Header extends Component {
   render() {
     return (
       <header className="header">
@@ -13,3 +13,5 @@ export default class Header extends Component {
     );
   }
 }
+
+export default Header;

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 
 import './main.styl';
 
-export default class Main extends Component {
+import { HeadingProps } from 'src/shared/types/heading';
+
+class Main extends Component<HeadingProps, {}> {
   render() {
     const { heading } = this.props;
 
@@ -14,3 +16,5 @@ export default class Main extends Component {
     );
   }
 }
+
+export default Main;

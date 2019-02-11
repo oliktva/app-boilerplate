@@ -4,7 +4,7 @@ const loaders = require('./webpack.loaders');
 const plugins = require('./webpack.plugins');
 
 module.exports = (env, argv) => ({
-  entry: './src/client/init.js',
+  entry: './src/client/init.tsx',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
@@ -39,6 +39,7 @@ module.exports = (env, argv) => ({
   },
   resolve: {
     modules: [path.resolve(__dirname), 'node_modules', 'src'],
-    symlinks: false
+    symlinks: false,
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
   }
 });

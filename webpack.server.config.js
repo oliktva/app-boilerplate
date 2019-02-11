@@ -42,7 +42,8 @@ const serverConfig = (env, argv) => ({
   ],
   resolve: {
     modules: [path.resolve(__dirname), 'node_modules'],
-    symlinks: false
+    symlinks: false,
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
   }
 });
 
@@ -82,7 +83,8 @@ const clientConfig = (env, argv) => ({
   },
   resolve: {
     modules: [path.resolve(__dirname), 'node_modules', 'src'],
-    symlinks: false
+    symlinks: false,
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
   }
 });
 

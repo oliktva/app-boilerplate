@@ -2,7 +2,6 @@
   "compilerOptions": {
     "outDir": "./build/",
     "sourceMap": true,
-    "lib": ["es6", "dom"],
     "module": "es6",
     "target": "es5",
     "jsx": "react",
@@ -11,7 +10,15 @@
     "allowJs": true,
     "noUnusedParameters": true,
     "strict": true,
-    "noImplicitThis": false
+    "noImplicitThis": false,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["*"]
+    }
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*"],
+  "exclude": [
+    "node_modules",
+    "build"
+  ]
 }
