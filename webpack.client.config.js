@@ -8,7 +8,7 @@ module.exports = (env, argv) => ({
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
-    publicPath: argv.mode === 'production' ? path.resolve(__dirname, 'build') + '/' : '/'
+    publicPath: argv.mode === 'production' ? path.resolve('./build') + '/' : '/'
   },
   devtool: 'source-map',
   module: {
@@ -30,7 +30,7 @@ module.exports = (env, argv) => ({
   },
   plugins: plugins.getDevPlugins(argv),
   devServer: {
-    contentBase: path.resolve(__dirname, 'build/assets'),
+    contentBase: path.resolve('./build/assets'),
     historyApiFallback: true,
     stats: 'errors-only',
     open: true,
@@ -38,7 +38,7 @@ module.exports = (env, argv) => ({
     compress: true
   },
   resolve: {
-    modules: [path.resolve(__dirname), 'node_modules', 'src'],
+    modules: [path.resolve('./'), 'node_modules', 'src'],
     symlinks: false,
     extensions: ['.ts', '.tsx', '.js', '.jsx']
   }

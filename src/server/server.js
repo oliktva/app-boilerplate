@@ -2,6 +2,8 @@ import React from 'react';
 import path from 'path';
 import fs from 'fs';
 import express from 'express';
+import serveStatic from 'serve-static';
+
 import { StaticRouter } from 'react-router-dom';
 import { renderToString } from 'react-dom/server';
 import { createStore, combineReducers } from 'redux';
@@ -16,7 +18,7 @@ const app = express();
 const port = 3030;
 
 //Serve static files
-app.use(express.static('build', { index: false }));
+app.use(serveStatic(path.resolve('./build'), { index: false }));
 
 // This is fired every time the server side receives a request
 app.use('/', handleRender);
@@ -41,7 +43,7 @@ function handleRender(req, res) {
   const preloadedState = store.getState();
 
   // Send the rendered page back to the client
-  const indexFile = path.resolve('build/index.html');
+  const indexFile = path.resolve('./build/index.html');
   fs.readFile(indexFile, 'utf8', (err, data) => {
     if (err) {
       console.error('Something went wrong:', err);

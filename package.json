@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build-server": "webpack --mode development --config webpack.server.config.js",
-    "server": "npm run build-server && nodemon build/server.js",
+    "server": "npm run build && nodemon build/server.js",
     "prod": "npm install && npm run server",
     "dev": "npm install && webpack-dev-server --mode development --config webpack.client.config.js",
     "build": "npm install && webpack --mode production --config webpack.server.config.js"
@@ -18,6 +18,7 @@
     "awesome-typescript-loader": "5.2.1",
     "clean-webpack-plugin": "0.1.19",
     "css-loader": "1.0.0",
+    "csso-webpack-plugin": "1.0.0-beta.12",
     "eslint": "5.6.1",
     "eslint-plugin-react": "7.11.1",
     "html-loader": "0.5.5",
@@ -31,6 +32,7 @@
     "stylus": "0.54.5",
     "stylus-loader": "3.0.2",
     "typescript": "3.3.3",
+    "uglifyjs-webpack-plugin": "2.1.1",
     "webpack": "4.20.2",
     "webpack-cli": "3.1.2",
     "webpack-dev-server": "^3.1.14",
@@ -51,6 +53,7 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "4.3.1",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "serve-static": "1.13.2"
   }
 }

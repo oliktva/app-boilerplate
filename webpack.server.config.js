@@ -11,9 +11,9 @@ const serverConfig = (env, argv) => ({
   target: 'node',
   externals: [nodeExternals()],
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve('./build'),
     filename: 'server.js',
-    publicPath: argv.mode === 'production' ? path.resolve(__dirname, 'build') + '/' : '/'
+    publicPath: argv.mode === 'production' ? path.resolve('./build') + '/' : '/'
   },
   devtool: 'source-map',
   module: {
@@ -35,24 +35,25 @@ const serverConfig = (env, argv) => ({
   },
   plugins: [
     new CleanWebpackPlugin(['build'], {
-      root: __dirname,
+      root: path.resolve('./'),
       verbose: true,
       dry: false,
     })
   ],
   resolve: {
-    modules: [path.resolve(__dirname), 'node_modules'],
+    modules: [path.resolve('./'), 'node_modules'],
     symlinks: false,
     extensions: ['.ts', '.tsx', '.js', '.jsx']
-  }
+  },
+  optimization: plugins.getOptimization(argv)
 });
 
 const clientConfig = (env, argv) => ({
   entry: './src/server/client.js',
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve('./build'),
     filename: 'bundle.js',
-    publicPath: argv.mode === 'production' ? path.resolve(__dirname, 'build') + '/' : '/'
+    publicPath: argv.mode === 'production' ? 'http://localhost:3030/' : '/'
   },
   devtool: 'source-map',
   module: {
@@ -74,7 +75,7 @@ const clientConfig = (env, argv) => ({
   },
   plugins: plugins.getProdPlugins(argv),
   devServer: {
-    contentBase: path.resolve(__dirname, 'build/assets'),
+    contentBase: path.resolve('./build/assets'),
     historyApiFallback: true,
     stats: 'errors-only',
     open: true,
@@ -82,10 +83,11 @@ const clientConfig = (env, argv) => ({
     compress: true
   },
   resolve: {
-    modules: [path.resolve(__dirname), 'node_modules', 'src'],
+    modules: [path.resolve('./'), 'node_modules', 'src'],
     symlinks: false,
     extensions: ['.ts', '.tsx', '.js', '.jsx']
-  }
+  },
+  optimization: plugins.getOptimization(argv)
 });
 
 module.exports = [clientConfig, serverConfig];
